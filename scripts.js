@@ -1,2 +1,5 @@
 // The Time Script
-document.getElementById("time").innerHTML = Date();
+$(function() {
+    var name = prompt("Please Enter Your Name");
+    $("#main").append(name);
+});
