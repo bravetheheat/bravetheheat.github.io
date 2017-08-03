@@ -6,7 +6,6 @@ var key; //unicode key of keydown
 window.onkeydown = function () { keypress(event); };
 window.onkeyup = function () {
     $("#player").stop(true, false);
-    $("#player").clearQueue();
     /* Muah. -You have just been Sloppy Daved. MUAHAHAHAHA*/
 };
 
@@ -41,7 +40,6 @@ function keypress(event) {
     }
     if (oldkey != key) {
         $("#player").stop(true, false);
-        $("#player").clearQueue();
     }
     act(action);
 }
@@ -86,22 +84,22 @@ function move(direction) {
     switch (direction) {
         case "left":
             {
-                $("#player").animate({ left: '-=30px' }, '1');
+                $("#player").animate({ left: '-=30px' }, 50, "linear");
                 break;
             }
         case "right":
             {
-                $("#player").animate({ left: '+=30px' }, '1');
+                $("#player").animate({ left: '+=30px' }, 50, "linear");
                 break;
             }
         case "up":
             {
-                $("#player").animate({ top: '-=30px' }, '1');
+                $("#player").animate({ top: '-=30px' }, 50, "linear");
                 break;
             }
         case "down":
             {
-                $("#player").animate({ top: '+=30px' }, '1');
+                $("#player").animate({ top: '+=30px' }, 50, "linear");
                 break;
             }
 
