@@ -7,6 +7,7 @@ window.onkeydown = function () { keypress(event); };
 window.onkeyup = function () {
     $("#player").stop(true, false);
     $("#player").clearQueue();
+    /* Muah. -You have just been Sloppy Daved. MUAHAHAHAHA*/
 };
 
 function keypress(event) {
@@ -44,6 +45,14 @@ function keypress(event) {
     }
     act(action);
 }
+/*  
+  ,d88b.d88b,
+  88888888888
+  `Y8888888Y'
+    `Y888Y'    
+      `Y'
+*/
+
 
 function act(playeract) {
     switch (playeract) {
