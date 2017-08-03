@@ -86,22 +86,22 @@ function move(direction) {
     switch (direction) {
         case "left":
             {
-                $("#player").animate({ left: '-=30px' }, 30, "linear");
+                $("#player").animate({ left: '-=30px' }, 50, "linear");
                 break;
             }
         case "right":
             {
-                $("#player").animate({ left: '+=30px' }, 30, "linear");
+                $("#player").animate({ left: '+=30px' }, 50, "linear");
                 break;
             }
         case "up":
             {
-                $("#player").animate({ top: '-=30px' }, 30, "linear");
+                $("#player").animate({ top: '-=30px' }, 50, "linear");
                 break;
             }
         case "down":
             {
-                $("#player").animate({ top: '+=30px' }, 30, "linear");
+                $("#player").animate({ top: '+=30px' }, 50, "linear");
                 break;
             }
 
