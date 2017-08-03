@@ -70,6 +70,7 @@ function move(direction) {
 function shoot() {
     //create bullet sprite
     setInterval(function () { bullet(); }, (1 / 60)); //move the shot and check for colisions
+    //https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval
     //might not be optimal because there is only one timer, not an independent timer created for each instance
 }
 
