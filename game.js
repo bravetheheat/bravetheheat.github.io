@@ -3,9 +3,14 @@ var action = "none"; //determines action done based on keypress
 
 var key; //unicode key of keydown
 
-$("#game").onkeydown = function () { keypress(event); };
+window.onkeydown = function () { keypress(event); };
+window.onkeyup = function () {
+    $("#player").stop(true, false);
+    $("#player").clearQueue();
+};
 
 function keypress(event) {
+    var oldkey = key;
     key = event.which; //key 
     switch (key) {
         case 32: { //spacebar
@@ -33,7 +38,11 @@ function keypress(event) {
             break;
         }
     }
-    key = 0; //reset key
+    if (oldkey != key) {
+        $("#player").stop(true, false);
+        $("#player").clearQueue();
+    }
+    act(action);
 }
 
 function act(playeract) {
@@ -49,7 +58,7 @@ function act(playeract) {
                 break;
             }
         case "left": {
-            move("down");
+            move("left");
             break;
         }
         case "right": {
@@ -64,6 +73,31 @@ function act(playeract) {
 }
 
 function move(direction) {
+    var pos = $("#player").position();
+    switch (direction) {
+        case "left":
+            {
+                $("#player").animate({ left: '-=30px' }, '1');
+                break;
+            }
+        case "right":
+            {
+                $("#player").animate({ left: '+=30px' }, '1');
+                break;
+            }
+        case "up":
+            {
+                $("#player").animate({ top: '-=30px' }, '1');
+                break;
+            }
+        case "down":
+            {
+                $("#player").animate({ top: '+=30px' }, '1');
+                break;
+            }
+
+    }
+
     //function for moving player sprite
 }
 
