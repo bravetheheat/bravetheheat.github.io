@@ -2,8 +2,7 @@ var action = "none"; //determines action done based on keypress
 //none: Nothing up: Up down: Down left: Left right: Right shoot: Shoot
 
 var key; //unicode key of keydown
-var bulletnum = 0;
-var bulletsprite;
+
 window.onkeydown = function () { keypress(event); };
 window.onkeyup = function () {
     //$("#player").stop(true, false);
@@ -113,20 +112,7 @@ function move(direction) {
 
 function shoot() {
     //create bullet sprite
-    bulletnum++;
-    var bulletID = "bullet" + bulletnum
-    var txt = "<img id=" + bulletID + " src='assets/laser.png' />";
-    $("#game").prepend(txt);
-    var pos = $("#player").position();
-    var idbulletnum = "#" + bulletID;
-    $(idbulletnum).css({
-        "position": "absolute",
-        "top": (pos.top + 10) + "px",
-        "left": (pos.left + 60) + "px"
-    });
-    $(idbulletnum).animate({ top: '-=3000px' }, "slow", "linear");
-    //var bulletUID[bulletnum] = setInterval(function () { bullet(); }, (1 / 60)); 
-    //move the shot and check for colisions
+    setInterval(function () { bullet(); }, (1 / 60)); //move the shot and check for colisions
     //https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval
     //might not be optimal because there is only one timer, not an independent timer created for each instance
 }
