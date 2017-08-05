@@ -127,9 +127,8 @@ function shoot() {
         "left": (pos.left + 60) + "px"
     });
     //$(idbulletnum).animate({ top: '-=3000px' }, "slow", "linear");
-    bullet(idbulletnum);
-    $("#laser")[0].play();
-    //move the shot and check for colisions
+    bullet(idbulletnum); //activate unique bullet function
+    $("#laser")[0].play(); //Plays laser sound
     //https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval
     //might not be optimal because there is only one timer, not an independent timer created for each instance
 }
@@ -137,12 +136,12 @@ function shoot() {
 function bullet(idbulletnum) {
     //move bullet
     var pos = $(idbulletnum).position();
-    $(idbulletnum).animate({ top: '-=15px' }, 25, "linear")
-    if (pos.top >= 150) {
-        setTimeout(function () { bullet(idbulletnum); }, 25);
+    $(idbulletnum).animate({ top: '-=15px' }, 25, "linear") //animate bullet upwards
+    if (pos.top >= 150) { //test if border has been crossed
+        setTimeout(function () { bullet(idbulletnum); }, 25); //repeat function with the same bulletUID after 25 milliseconds
     }
     else {
-        $(idbulletnum).remove();
+        $(idbulletnum).remove(); //kill bullet if border has been crossed.
     }
     //check if bullet has collided
 }
