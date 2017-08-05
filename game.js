@@ -4,6 +4,7 @@ var action = "none"; //determines action done based on keypress
 var key; //unicode key of keydown
 var bulletnum = 0;
 var bulletsprite;
+var bulletUID;
 window.onkeydown = function () { keypress(event); };
 window.onkeyup = function () {
     //$("#player").stop(true, false);
@@ -41,7 +42,8 @@ function keypress(event) {
         }
     }
     if (oldkey != key) {
-        $("#player").stop(true, false);
+        //$("#player").stop(true, false);
+        $("#player").clearQueue();
     }
     act(action);
 }
@@ -124,15 +126,24 @@ function shoot() {
         "top": (pos.top + 10) + "px",
         "left": (pos.left + 60) + "px"
     });
-    $(idbulletnum).animate({ top: '-=3000px' }, "slow", "linear");
-    //var bulletUID[bulletnum] = setInterval(function () { bullet(); }, (1 / 60)); 
+    //$(idbulletnum).animate({ top: '-=3000px' }, "slow", "linear");
+    bullet(idbulletnum);
+    $("#laser")[0].play();
     //move the shot and check for colisions
     //https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval
     //might not be optimal because there is only one timer, not an independent timer created for each instance
 }
 
-function bullet() {
+function bullet(idbulletnum) {
     //move bullet
+    var pos = $(idbulletnum).position();
+    $(idbulletnum).animate({ top: '-=15px' }, 25, "linear")
+    if (pos.top >= 150) {
+        setTimeout(function () { bullet(idbulletnum); }, 25);
+    }
+    else {
+        $(idbulletnum).remove();
+    }
     //check if bullet has collided
 }
 
