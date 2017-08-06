@@ -159,27 +159,35 @@ function shoot() {
 
 function bullet(idbulletnum) {
     //move bullet
-    var pos = $(idbulletnum).position();
-    $(idbulletnum).animate({ top: '-=15px' }, 25, "linear") //animate bullet upwards
-    if (pos.top >= 150) { //test if border has been crossed
-        setTimeout(function () { bullet(idbulletnum); }, 25); //repeat function with the same bulletUID after 25 milliseconds
-    }
-    else {
-        $(idbulletnum).remove(); //kill bullet if border has been crossed.
+    if ($(idbulletnum).length) {
+        var pos = $(idbulletnum).position();
+        $(idbulletnum).animate({ top: '-=15px' }, 25, "linear") //animate bullet upwards
+        if (pos.top >= 150) { //test if border has been crossed
+            setTimeout(function () { bullet(idbulletnum); }, 50); //repeat function with the same bulletUID after 25 milliseconds
+        }
+        else {
+            $(idbulletnum).remove(); //kill bullet if border has been crossed.
+        }
     }
     //check if bullet has collided
 }
 
 function enemy(idenemynum) {
     var pos = $(idenemynum).position();
-    for (i = 0; i < bulletnum; i++) {
-        var idbulletnum = "#bullet" + i;
-        var bulletpos = $(idbulletnum).position();
-        var diffY = Math.abs(pos.top - bulletpos.top);
-        var diffX = Math.abs(pos.left - bulletpos.left);
-        if ((diffY < 10) && (diffX < 10)) {
-            $(idbulletnum).remove();
-            $(idenemynum).remove();
+    var idbulletnum;
+    if (bulletnum != 0) {
+        for (i = 1; i < bulletnum; i++) {
+            idbulletnum = "#bullet" + i;
+            if ($(idbulletnum).length) {
+                var bulletpos = $(idbulletnum).position();
+                var diffY = Math.abs(pos.top - bulletpos.top);
+                var diffX = Math.abs(pos.left - bulletpos.left);
+                if ((diffY < 20) && (diffX < 20)) {
+                    $(idbulletnum).remove();
+                    $(idenemynum).remove();
+                    return;
+                }
+            }
         }
     }
     $(idenemynum).animate({ top: '+=10px' }, 50, "linear")
@@ -213,5 +221,5 @@ function genenemy() {
         "top": "150px",
         "left": enemyX + "px"
     });
-    setTimeout(function () { enemy(idenemynum); }, 25);
+    enemy(idenemynum);
 }
