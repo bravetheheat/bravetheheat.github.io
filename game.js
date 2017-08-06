@@ -1,21 +1,43 @@
 var action = "none"; //determines action done based on keypress
 //none: Nothing up: Up down: Down left: Left right: Right shoot: Shoot
 
-var key; //unicode key of keydown
+var key = []; //unicode key of keydown
 var bulletnum = 0;
+var enemynum = 0;
 var bulletsprite;
 var bulletUID;
 window.onkeydown = function () { keypress(event); };
 window.onkeyup = function () {
     //$("#player").stop(true, false);
+    //$("#player").clearQueue();
+    keypress(event);
     $("#player").clearQueue();
     /* Muah. -You have just been Sloppy Daved. MUAHAHAHAHA*/
 };
 
+setInterval(genenemy, 2000);
+
 function keypress(event) {
-    var oldkey = key;
-    key = event.which; //key 
-    switch (key) {
+    //var oldkey = key;
+    //key = event.which; 
+    //alert(event.keyCode);
+    key[event.keyCode] = (event.type == 'keydown');
+    if (key[32]) {
+        act("shoot");
+    }
+    if (key[37]) {
+        act("left");
+    }
+    if (key[38]) {
+        act("up");
+    }
+    if (key[39]) {
+        act("right");
+    }
+    if (key[40]) {
+        act("down");
+    }
+    /*switch (key) {
         case 32: { //spacebar
             action = "shoot"
             break;
@@ -46,6 +68,8 @@ function keypress(event) {
         $("#player").clearQueue();
     }
     act(action);
+    */
+
 }
 /*  To Katie
 
@@ -146,6 +170,28 @@ function bullet(idbulletnum) {
     //check if bullet has collided
 }
 
+function enemy(idenemynum) {
+    var pos = $(idenemynum).position();
+    for (i = 0; i < bulletnum; i++) {
+        var idbulletnum = "#bullet" + i;
+        var bulletpos = $(idbulletnum).position();
+        var diffY = Math.abs(pos.top - bulletpos.top);
+        var diffX = Math.abs(pos.left - bulletpos.left);
+        if ((diffY < 10) && (diffX < 10)) {
+            $(idbulletnum).remove();
+            $(idenemynum).remove();
+        }
+    }
+    $(idenemynum).animate({ top: '+=10px' }, 50, "linear")
+    if (pos.top <= 800) { //test if border has been crossed
+        setTimeout(function () { enemy(idenemynum); }, 50); //repeat function with the same bulletUID after 25 milliseconds
+    }
+    else {
+        $(idenemynum).remove(); //kill bullet if border has been crossed.
+    }
+
+}
+
 function timed() {//to be executed 60 times a second
     if (action != "none") {
         act(action);
@@ -153,3 +199,19 @@ function timed() {//to be executed 60 times a second
     action = "none"; //reset key
 }
 
+function genenemy() {
+    enemynum++;
+    var enemyID = "bullet" + enemynum;
+    var txt = "<img id=" + enemyID + " src='assets/enemy.png' />";
+    $("#game").prepend(txt);
+    var idenemynum = "#" + enemyID;
+    var enemyX = Math.floor((Math.random() * 400) + 200);
+    $(idenemynum).css({
+        "position": "absolute",
+        "width": "50px",
+        "height": "50px",
+        "top": "150px",
+        "left": enemyX + "px"
+    });
+    setTimeout(function () { enemy(idenemynum); }, 25);
+}
