@@ -176,28 +176,30 @@ function enemy(idenemynum) {
     var pos = $(idenemynum).position();
     var idbulletnum;
     if (bulletnum != 0) {
-        for (i = 1; i < bulletnum; i++) {
+        for (i = 1; i <= bulletnum; i++) {
             idbulletnum = "#bullet" + i;
             if ($(idbulletnum).length) {
                 var bulletpos = $(idbulletnum).position();
                 var diffY = Math.abs(pos.top - bulletpos.top);
                 var diffX = Math.abs(pos.left - bulletpos.left);
-                if ((diffY < 20) && (diffX < 20)) {
+                if ((diffY < 15) && (diffY < 15) && (diffY != 0) && (diffX != 0)) {
                     $(idbulletnum).remove();
                     $(idenemynum).remove();
                     return;
+
                 }
             }
         }
     }
-    $(idenemynum).animate({ top: '+=10px' }, 50, "linear")
-    if (pos.top <= 800) { //test if border has been crossed
-        setTimeout(function () { enemy(idenemynum); }, 50); //repeat function with the same bulletUID after 25 milliseconds
+    if ($(idenemynum).length) {
+        $(idenemynum).animate({ top: '+=10px' }, 50, "linear")
+        if (pos.top <= 800) { //test if border has been crossed
+            setTimeout(function () { enemy(idenemynum); }, 50); //repeat function with the same bulletUID after 25 milliseconds
+        }
+        else {
+            $(idenemynum).remove(); //kill bullet if border has been crossed.
+        }
     }
-    else {
-        $(idenemynum).remove(); //kill bullet if border has been crossed.
-    }
-
 }
 
 function timed() {//to be executed 60 times a second
