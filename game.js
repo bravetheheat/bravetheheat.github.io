@@ -161,10 +161,10 @@ function bullet(idbulletnum) {
     //move bullet
     if ($(idbulletnum).length) {
         var pos = $(idbulletnum).position();
-        var newy = pos.top - 3 + "px"
+        var newy = pos.top - 5 + "px"
         $(idbulletnum).css({ "top": newy });
         if (pos.top >= 150) {
-            setTimeout(function () { bullet(idbulletnum); }, 8);
+            setTimeout(function () { bullet(idbulletnum); }, 15);
         }
         else {
             $(idbulletnum).remove(); //kill bullet if border has been crossed.
@@ -200,6 +200,7 @@ function enemy(idenemynum) {
                         console.log(diffY, diffX);
                         $(idbulletnum).remove();
                         $(idenemynum).remove();
+                        $("#explosion")[0].play();
                         break;
 
                     }
@@ -220,9 +221,9 @@ function enemy(idenemynum) {
 function moveenemy(idenemynum) {
     if ($(idenemynum).length) {
         var pos = $(idenemynum).position();
-        var newy = pos.top + 2 + "px"
+        var newy = pos.top + 4 + "px"
         $(idenemynum).css({ "top": newy });
-        setTimeout(function () { moveenemy(idenemynum); }, 15);
+        setTimeout(function () { moveenemy(idenemynum); }, 30);
     }
 }
 
