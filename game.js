@@ -210,7 +210,7 @@ function enemy(idenemynum) {
 
         //$(idenemynum).animate({ top: '+=10px' }, 50, "linear")
         if (pos.top <= 800) { //test if border has been crossed
-            setTimeout(function () { enemy(idenemynum); }, 50); //repeat function with the same bulletUID after 25 milliseconds
+            setTimeout(function () { enemy(idenemynum); }, 70); //repeat function with the same bulletUID after 25 milliseconds
         }
         else {
             $(idenemynum).remove(); //kill bullet if border has been crossed.
