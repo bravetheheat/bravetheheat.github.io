@@ -196,12 +196,12 @@ function enemy(idenemynum) {
                     var bulletpos = $(idbulletnum).position();
                     var diffY = Math.abs(pos.top - bulletpos.top);
                     var diffX = Math.abs(pos.left - bulletpos.left);
-                    if (diffY < 50 && diffX < 30 && diffY != 0 && diffX != 0) {
+                    if (diffY < 50 && diffX < 40 && diffY != 0 && diffX != 0) {
                         console.log(diffY, diffX);
                         $(idbulletnum).remove();
                         $(idenemynum).remove();
                         $("#explosion")[0].play();
-                        break;
+                        return;
 
                     }
                 }
