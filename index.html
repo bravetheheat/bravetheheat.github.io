@@ -26,55 +26,106 @@
     </div>
     <div class="off-canvas-content" data-off-canvas-content>
       <!-- page content -->
-      <div class="grid-x" id="title">
-        <div class="small-1 cell">
-        </div>
-        <div class="small-3 cell">
-          <h3>Chomper</h1>
-        </div>
-        <div class="small-7 cell">
-          <ul class="menu align-right" id="title-menu">
-            <li><a href="#">One</a></li>
-            <li><a href="#">Two</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">LOGIN</a></li>
-          </ul>
-        </div>
-        <button type="menu-button" class="button" data-toggle="offCanvasRight" id="menu-button">
+      <div class="grid-container fluid" id="title">
+        <div class="grid-x" id="title">
+          <div class="small-1 cell">
+          </div>
+          <div class="small-3 cell">
+            <h3>Chomper</h1>
+          </div>
+          <div class="small-7 cell">
+            <ul class="menu align-right" id="title-menu">
+              <li><a href="#">One</a></li>
+              <li><a href="#">Two</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">LOGIN</a></li>
+            </ul>
+          </div>
+          <button type="menu-button" class="button" data-toggle="offCanvasRight" id="menu-button">
               <div class="hamburger">
                 <span class="line"></span>
                 <span class="line"></span>
                 <span class="line"></span>
               </di>
             </button>
-      </div>
-
-      <div>
-        <!-- interactive map -->
+        </div>
       </div>
       <div class="grid-container">
-      <div class="grid-x padding-x" id="showcase">
-        <div class="medium-4 cell">
-          <p>Placeholder 1 </p>
-        </div>
-        <div class="medium-4 cell">
-          <p>Placeholder 1 </p>
-        </div>
-        <div class="medium-4 cell">
-          <p>Placeholder 1 </p>
-        </div>
-      </div>
-    </div>
 
-    <div class="grid-container fluid" id="footer">
-      <div class="grid-x" id="footer">
-        <h3>dfdfd</h3>
+
       </div>
-    </div>
+      <div class="grid-container fluid" id="showcase">
+        <div class="grid-x padding-x" id="showcase">
+          <div class="medium-4 cell">
+            <p>Placeholder 1 </p>
+            <img class="thumbnail" src="assets/img/beef-pho.jpg" alt="Photo of Uranus.">
+          </div>
+          <div class="medium-4 cell">
+            <p>Placeholder 1 </p>
+          </div>
+          <div class="medium-4 cell">
+            <p>Placeholder 1 </p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-container" id="map">
+        <div id="map">
+          <!-- interactive map -->
+          <script>
+            var map, marker;
+            function initMap() {
+              var uluru = { lat: 43.6532, lng: 79.3832 };
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: uluru
+              });
+              marker = new google.maps.Marker;
+
+
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                  var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                  };
+
+                  marker = new google.maps.Marker({
+                    position: pos,
+                    map: map
+                  });
+                  map.setCenter(pos);
+                }, function () {
+                  handleLocationError(true, infoWindow, map.getCenter());
+                });
+              } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+              }
+
+              function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(browserHasGeolocation ?
+                  'Error: The Geolocation service failed.' :
+                  'Error: Your browser doesn\'t support geolocation.');
+                infoWindow.open(map);
+              }
+            }
+          </script>
+        </div>
+      </div>
+      <div class="grid-container fluid" id="footer">
+        <div class="grid-x" id="footer">
+          <h3>dfdfd</h3>
+        </div>
+      </div>
+
 
     </div>
   </div>
 </div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC33rA53UJDy8Bo3P74NXvle8vvwI-2-YE&callback=initMap">
+
+</script>
 
 
   <script src="assets/js/app.js"></script>
